@@ -1,0 +1,13 @@
+Package: baygel
+Type: Package
+Title: Bayesian Estimators for Gaussian Graphical Models.
+Version: 0.1.0
+Date: 2022-07-09
+Authors@R: c(person("Jarod", "Smith", email = "jarodsmith706@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-4235-6147")),
+  person("Mohammad", "Arashi", email = "arashi@um.ac.ir", role = "aut", comment = c(ORCID = " 0000-0002-5881-9241")),
+  person("Andriette", "Bekker", email = "andriette.bekker@up.ac.za", role = "aut", comment = c(ORCID = "0000-0003-4793-5674")))
+Description: Implements a Bayesian graphical ridge data-augmented block Gibbs sampler. The sampler simulates the posterior distribution of precision matrices of a Gaussian Graphical Model. This sampler is proposed in Smith et al. (2012) <doi.org/10.48550>.
+License: GPL (>= 2)
+Imports: Rcpp (>= 1.0.8)
+LinkingTo: Rcpp,
+    RcppArmadillo,
