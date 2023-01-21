@@ -1,2 +1,9 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^README.Rmd
+^NEWS.Rmd
+^NEWS.md
+^.Rhistory
+^CRAN-SUBMISSION$
+^cran-comments\.md$
+^man/figures$
