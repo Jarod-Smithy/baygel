@@ -5,15 +5,19 @@
 
 /* FIXME:
  Check these declarations against the C/Fortran source code.
-*/
+ */
 
 /* .Call calls */
-extern SEXP _baygel_BGR(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP _baygel_ABGR(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP _baygel_blockBSGR(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP _baygel_mvrnormArma(SEXP, SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
-  {"_baygel_BGR", (DL_FUNC) &_baygel_BGR, 6},
+  {"_baygel_ABGR",        (DL_FUNC) &_baygel_ABGR,        6},
+  {"_baygel_blockBSGR",   (DL_FUNC) &_baygel_blockBSGR,   6},
+  {"_baygel_mvrnormArma", (DL_FUNC) &_baygel_mvrnormArma, 3},
   {NULL, NULL, 0}
-}
+};
 
 // void R_init_baygel(DllInfo *dll)
 // {
