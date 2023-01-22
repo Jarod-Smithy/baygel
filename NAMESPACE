@@ -1,3 +1,4 @@
 useDynLib(baygel, .registration=TRUE)
 importFrom(Rcpp, evalCpp)
-export(blockBSGR)
+export(blockBSGR,
+       blockBAGR)

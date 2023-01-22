@@ -11,6 +11,22 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
+// blockBAGR
+List blockBAGR(arma::mat X, int burnIn, int iterations, double s, double t, bool verbose);
+RcppExport SEXP _baygel_blockBAGR(SEXP XSEXP, SEXP burnInSEXP, SEXP iterationsSEXP, SEXP sSEXP, SEXP tSEXP, SEXP verboseSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type X(XSEXP);
+    Rcpp::traits::input_parameter< int >::type burnIn(burnInSEXP);
+    Rcpp::traits::input_parameter< int >::type iterations(iterationsSEXP);
+    Rcpp::traits::input_parameter< double >::type s(sSEXP);
+    Rcpp::traits::input_parameter< double >::type t(tSEXP);
+    Rcpp::traits::input_parameter< bool >::type verbose(verboseSEXP);
+    rcpp_result_gen = Rcpp::wrap(blockBAGR(X, burnIn, iterations, s, t, verbose));
+    return rcpp_result_gen;
+END_RCPP
+}
 // blockBSGR
 List blockBSGR(arma::mat X, int burnIn, int iterations, double tau, double mu, bool verbose);
 RcppExport SEXP _baygel_blockBSGR(SEXP XSEXP, SEXP burnInSEXP, SEXP iterationsSEXP, SEXP tauSEXP, SEXP muSEXP, SEXP verboseSEXP) {
@@ -24,22 +40,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type mu(muSEXP);
     Rcpp::traits::input_parameter< bool >::type verbose(verboseSEXP);
     rcpp_result_gen = Rcpp::wrap(blockBSGR(X, burnIn, iterations, tau, mu, verbose));
-    return rcpp_result_gen;
-END_RCPP
-}
-// ABGR
-List ABGR(arma::mat X, int burnIn, int iterations, double s, double t, bool verbose);
-RcppExport SEXP _baygel_ABGR(SEXP XSEXP, SEXP burnInSEXP, SEXP iterationsSEXP, SEXP sSEXP, SEXP tSEXP, SEXP verboseSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat >::type X(XSEXP);
-    Rcpp::traits::input_parameter< int >::type burnIn(burnInSEXP);
-    Rcpp::traits::input_parameter< int >::type iterations(iterationsSEXP);
-    Rcpp::traits::input_parameter< double >::type s(sSEXP);
-    Rcpp::traits::input_parameter< double >::type t(tSEXP);
-    Rcpp::traits::input_parameter< bool >::type verbose(verboseSEXP);
-    rcpp_result_gen = Rcpp::wrap(ABGR(X, burnIn, iterations, s, t, verbose));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -58,8 +58,8 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_baygel_blockBAGR", (DL_FUNC) &_baygel_blockBAGR, 6},
     {"_baygel_blockBSGR", (DL_FUNC) &_baygel_blockBSGR, 6},
-    {"_baygel_ABGR", (DL_FUNC) &_baygel_ABGR, 6},
     {"_baygel_mvrnormArma", (DL_FUNC) &_baygel_mvrnormArma, 3},
     {NULL, NULL, 0}
 };

@@ -1,19 +1,47 @@
 #include <RcppArmadillo.h>
 #include "BayesGgmHelper.h"
+#include "progress.hpp"
 
 // [[Rcpp::depends(RcppArmadillo)]]
 // [[Rcpp::depends(RcppProgress)]]
 
 using namespace Rcpp;
 
+//' Block Gibbs sampler function.
+//'
+//' A Bayesian adaptive graphical ridge-type data-augmented block Gibbs sampler for simulating the posterior distribution of the concentration matrix specifying a Gaussian graphical model.
+//'
+//' @param X Numeric data matrix, data is assumed to be Gaussian distributed.
+//' @param burnIn An integer specifying the number of burn-in iterations.
+//' @param iterations An integer specifying the length of the Markov chain after the burn-in iterations.
+//' @param s A double specifying the value of the prior inverse gamma's shape parameter.
+//' @param t A double specifying the value of the prior inverse gamma's scale parameter.
+//' @param verbose A logical determining whether the progress of the MCMC sampler should be displayed.
+//' @return blockBAGR: List of precision matrices from the Markov chains.
+//' @examples
+//'# Generate true covariance matrix:
+//'p             <- 10
+//'n             <- 50
+//'SigTrue       <- pracma::Toeplitz(c(0.7^rep(1:p-1)))
+//'CTrue         <- pracma::inv(SigTrue)
+//'# Generate expected value vector:
+//'mu            <- rep(0,p)
+//'# Generate multivariate normal distribution:
+//'set.seed(123)
+//'X             <- MASS::mvrnorm(n,mu=mu,Sigma=SigTrue)
+//'posterior     <- blockBAGR(X,iterations = 1000, burnIn = 500)
+//' @export
 // [[Rcpp::export]]
-List ABGR(arma::mat X, int burnIn, int iterations,double s = 1,double t = 1, bool verbose = true) {
+List blockBAGR(arma::mat X, int burnIn, int iterations,double s = 1,double t = 1, bool verbose = true) {
 
   // variable declarations and initialisations
   int totIter, n, p;
   totIter = burnIn + iterations;
   n = X.n_rows;
   p = X.n_cols;
+
+  // setup progress bar
+  Progress prog(totIter, verbose);
 
   arma::mat S(p, p), Sigma(p,p), Omega(p, p), perms(p-1, p), tau(p, p, arma::fill::zeros);
   S = X.t()* X;
@@ -63,6 +91,12 @@ List ABGR(arma::mat X, int burnIn, int iterations,double s = 1,double t = 1, boo
 
   for (int iter=0; iter<totIter; iter++){
 
+    if (Progress::check_abort())
+      return -1.0;
+
+    if (verbose){
+      prog.increment(); // update progress
+    }
 
     arma::uvec lw_idx = arma::trimatl_ind(arma::size(Omega), -1);
     OmegaTemp = Omega(lw_idx);

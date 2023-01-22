@@ -9,7 +9,7 @@ using namespace Rcpp;
 
 //' Block Gibbs sampler function.
 //'
-//' A Bayesian adaptive graphical ridge-type data-augmented block Gibbs sampler for simulating the posterior distribution of the concentration matrix specifying a Gaussian graphical model.
+//' A Bayesian standard graphical ridge-type data-augmented block Gibbs sampler for simulating the posterior distribution of the concentration matrix specifying a Gaussian graphical model.
 //'
 //' @param X Numeric data matrix, data is assumed to be Gaussian distributed.
 //' @param burnIn An integer specifying the number of burn-in iterations.
@@ -83,7 +83,6 @@ List blockBSGR(arma::mat X, int burnIn, int iterations,double tau = 1, double mu
   arma::rowvec beta(p-1);
   NumericVector gamm;
   int idx = 0;
-  // Set hyperparameters for the Gamma distirbution of the shrinkage parameter (lambda_{ij}):
 
   for (int iter=0; iter<totIter; iter++){
 
