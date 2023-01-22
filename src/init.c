@@ -12,15 +12,3 @@ extern SEXP _baygel_ABGR(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _baygel_blockBSGR(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _baygel_mvrnormArma(SEXP, SEXP, SEXP);
 
-static const R_CallMethodDef CallEntries[] = {
-  {"_baygel_ABGR",        (DL_FUNC) &_baygel_ABGR,        6},
-  {"_baygel_blockBSGR",   (DL_FUNC) &_baygel_blockBSGR,   6},
-  {"_baygel_mvrnormArma", (DL_FUNC) &_baygel_mvrnormArma, 3},
-  {NULL, NULL, 0}
-};
-
-// void R_init_baygel(DllInfo *dll)
-// {
-//   R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
-//   R_useDynamicSymbols(dll, FALSE);
-// }
