@@ -1,3 +1,7 @@
-useDynLib(baygel, .registration=TRUE)
+useDynLib(baygel, .registration = TRUE)
 importFrom(Rcpp, evalCpp)
-exportPattern("^[[:alpha:]]+")
+export(blockBAGR)
+export(blockBSGR)
+
+# Suppress R CMD check note
+importFrom(RcppArmadillo, fastLmPure)
