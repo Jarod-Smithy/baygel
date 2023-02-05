@@ -1,9 +1,10 @@
 ^.*\.Rproj$
-^\.Rproj\.user$
-^README.Rmd
-^NEWS.Rmd
-^NEWS.md
 ^.Rhistory
 ^CRAN-SUBMISSION$
+^NEWS.Rmd
+^NEWS.md
+^README.Rmd
+^\.Rproj\.user$
+^\.pre-commit-config\.yaml$
 ^cran-comments\.md$
 ^man/figures$
