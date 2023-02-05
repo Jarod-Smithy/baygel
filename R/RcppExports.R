@@ -13,20 +13,20 @@
 #' @param verbose A logical determining whether the progress of the MCMC sampler should be displayed.
 #' @return blockBAGR: List of precision matrices from the Markov chains.
 #' @examples
-#'# Generate true covariance matrix:
-#'p             <- 10
-#'n             <- 50
-#'SigTrue       <- pracma::Toeplitz(c(0.7^rep(1:p-1)))
-#'CTrue         <- pracma::inv(SigTrue)
-#'# Generate expected value vector:
-#'mu            <- rep(0,p)
-#'# Generate multivariate normal distribution:
-#'set.seed(123)
-#'X             <- MASS::mvrnorm(n,mu=mu,Sigma=SigTrue)
-#'posterior     <- blockBAGR(X,iterations = 1000, burnIn = 500)
+#' # Generate true covariance matrix:
+#' p <- 10
+#' n <- 50
+#' SigTrue <- pracma::Toeplitz(c(0.7^rep(1:p - 1)))
+#' CTrue <- pracma::inv(SigTrue)
+#' # Generate expected value vector:
+#' mu <- rep(0, p)
+#' # Generate multivariate normal distribution:
+#' set.seed(123)
+#' X <- MASS::mvrnorm(n, mu = mu, Sigma = SigTrue)
+#' posterior <- blockBAGR(X, iterations = 1000, burnIn = 500)
 #' @export
 blockBAGR <- function(X, burnIn, iterations, s = 1, t = 1, verbose = TRUE) {
-    .Call(`_baygel_blockBAGR`, X, burnIn, iterations, s, t, verbose)
+  .Call(`_baygel_blockBAGR`, X, burnIn, iterations, s, t, verbose)
 }
 
 #' Block Gibbs sampler function.
@@ -41,23 +41,22 @@ blockBAGR <- function(X, burnIn, iterations, s = 1, t = 1, verbose = TRUE) {
 #' @param verbose A logical determining whether the progress of the MCMC sampler should be displayed.
 #' @return blockBSGR: List of precision matrices from the Markov chains.
 #' @examples
-#'# Generate true covariance matrix:
-#'p             <- 10
-#'n             <- 50
-#'SigTrue       <- pracma::Toeplitz(c(0.7^rep(1:p-1)))
-#'CTrue         <- pracma::inv(SigTrue)
-#'# Generate expected value vector:
-#'mu            <- rep(0,p)
-#'# Generate multivariate normal distribution:
-#'set.seed(123)
-#'X             <- MASS::mvrnorm(n,mu=mu,Sigma=SigTrue)
-#'posterior     <- blockBSGR(X,iterations = 1000, burnIn = 500)
+#' # Generate true covariance matrix:
+#' p <- 10
+#' n <- 50
+#' SigTrue <- pracma::Toeplitz(c(0.7^rep(1:p - 1)))
+#' CTrue <- pracma::inv(SigTrue)
+#' # Generate expected value vector:
+#' mu <- rep(0, p)
+#' # Generate multivariate normal distribution:
+#' set.seed(123)
+#' X <- MASS::mvrnorm(n, mu = mu, Sigma = SigTrue)
+#' posterior <- blockBSGR(X, iterations = 1000, burnIn = 500)
 #' @export
 blockBSGR <- function(X, burnIn, iterations, tau = 1, mu = 0, verbose = TRUE) {
-    .Call(`_baygel_blockBSGR`, X, burnIn, iterations, tau, mu, verbose)
+  .Call(`_baygel_blockBSGR`, X, burnIn, iterations, tau, mu, verbose)
 }
 
 mvrnormArma <- function(n, mu, sigma) {
-    .Call(`_baygel_mvrnormArma`, n, mu, sigma)
+  .Call(`_baygel_mvrnormArma`, n, mu, sigma)
 }
-
