@@ -28,7 +28,7 @@ using namespace Rcpp;
 //'mu            <- rep(0,p)
 //'# Generate multivariate normal distribution:
 //'set.seed(123)
-//'X             <- MASS::mvrnorm(n,mu=mu,Sigma=SigTrue)
+//'X             <- MASS::mvrnorm(n,mu = mu,Sigma = SigTrue)
 //'posterior     <- blockBAGR(X,iterations = 1000, burnIn = 500)
 //' @export
 // [[Rcpp::export]]
@@ -141,5 +141,3 @@ List blockBAGR(arma::mat X, int burnIn, int iterations,double s = 1,double t = 1
   }
   return OmegaMatList;
 }
-
-
