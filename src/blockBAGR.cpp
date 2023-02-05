@@ -33,7 +33,6 @@ using namespace Rcpp;
 //' @export
 // [[Rcpp::export]]
 List blockBAGR(arma::mat X, int burnIn, int iterations,double s = 1,double t = 1, bool verbose = true) {
-
   // variable declarations and initialisations
   int totIter, n, p;
   totIter = burnIn + iterations;
@@ -90,7 +89,6 @@ List blockBAGR(arma::mat X, int burnIn, int iterations,double s = 1,double t = 1
   int idx = 0;
 
   for (int iter=0; iter<totIter; iter++){
-
     if (Progress::check_abort())
       return -1.0;
 

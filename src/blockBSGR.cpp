@@ -33,7 +33,6 @@ using namespace Rcpp;
 //' @export
 // [[Rcpp::export]]
 List blockBSGR(arma::mat X, int burnIn, int iterations,double tau = 1, double mu = 0, bool verbose = true) {
-
   // variable declarations and initialisations
   int totIter, n, p;
   totIter = burnIn + iterations;
@@ -85,7 +84,6 @@ List blockBSGR(arma::mat X, int burnIn, int iterations,double tau = 1, double mu
   int idx = 0;
 
   for (int iter=0; iter<totIter; iter++){
-
     if (Progress::check_abort())
       return -1.0;
 
@@ -118,7 +116,6 @@ List blockBSGR(arma::mat X, int burnIn, int iterations,double tau = 1, double mu
       NumericVector gamm = Rcpp::rgamma(1, n/2 + 1, 1/((S(i,i) - 2*mu + 1)/2));
       Omega.submat(i,i,i,i) = gamm(0) + beta * Omega11inv * beta.t();
       Sigma = inv_sympd(Omega);
-
     }
     if (iter>=burnIn){
       OmegaMatList[idx] = Omega;

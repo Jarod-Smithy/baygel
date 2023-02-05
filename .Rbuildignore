@@ -1,5 +1,6 @@
 ^.*\.Rproj$
 ^.Rhistory
+^.lintr
 ^CRAN-SUBMISSION$
 ^NEWS.Rmd
 ^NEWS.md

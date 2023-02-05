@@ -6,11 +6,12 @@ repos:
     hooks:
     -   id: style-files
         args: [--style_pkg=styler, --style_fun=tidyverse_style]
-    -   id: roxygenize
-        # roxygen requires loading pkg -> add dependencies from DESCRIPTION
-        additional_dependencies:
-        -    Rcpp
-        -    RcppArmadillo
+    # -   id: roxygenize
+    #     # roxygen requires loading pkg -> add dependencies from DESCRIPTION
+    #     additional_dependencies:
+    #     -    git2r
+    #     -    Rcpp
+    #     -    RcppArmadillo
     # codemeta must be above use-tidy-description when both are used
     # -   id: codemeta-description-updated
     -   id: use-tidy-description
@@ -72,6 +73,16 @@ repos:
         language: fail
         files: '\.(Rhistory|RData|Rds|rds)$'
         # `exclude: <regex>` to allow committing specific files
-
+# -   repo: https://github.com/pocc/pre-commit-hooks
+#     rev: master
+#     hooks:
+#     -   id: clang-format
+#         args: [--style=Google]
+#     -   id: clang-tidy
+#     -   id: oclint
+#     -   id: uncrustify
+#     -   id: cppcheck
+#     -   id: cpplint
+#     -   id: include-what-you-use
 ci:
     autoupdate_schedule: monthly
