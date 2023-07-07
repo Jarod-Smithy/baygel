@@ -2,7 +2,7 @@ Package: baygel
 Type: Package
 Title: Bayesian Estimators for Gaussian Graphical Models
 Version: 0.2.0
-Date: 2023-01-22
+Date: 2023-07-07
 Authors@R: c(person("Jarod", "Smith", email = "jarodsmith706@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-4235-6147")),
   person("Mohammad", "Arashi", email = "arashi@um.ac.ir", role = "aut", comment = c(ORCID = "0000-0002-5881-9241")),
   person("Andriette", "Bekker", email = "andriette.bekker@up.ac.za", role = "aut", comment = c(ORCID = "0000-0003-4793-5674")))
