@@ -10,9 +10,9 @@ name: R-CMD-CHECK
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "cran_package" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "cran_package" ]
 
 permissions:
   contents: read
