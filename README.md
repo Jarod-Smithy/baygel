@@ -8,12 +8,12 @@
 
 ## Overview
 
-The `R` package **baygel** provides a Markov chain Monte Carlo (MCMC)
-sampler to return the posterior distribution of precision matrices for
+The **baygel** `R` package provides data-augmented block Gibbs samplers
+to return the posterior distribution of precision matrices for
 *Gaussian* distributed data with *positive definite* covariance matrix.
 The package is implemented within the following literature, including
-[Smith et al. (2022)](https://doi.org/10.48550/arXiv.2210.16290). The
-MCMC sampler is implemented in `C++` using **RcppArmadillo**.
+[Smith et al. (2022)](https://doi.org/10.48550/arXiv.2210.16290) and
+[Smith et al. (2023)](https://doi.org/10.48550/arXiv.2306.14199).
 
 ## Installation
 
