@@ -5,6 +5,8 @@
 ![](https://www.r-pkg.org/badges/last-release/baygel)
 ![](https://cranlogs.r-pkg.org/badges/baygel)
 ![](https://cranlogs.r-pkg.org/badges/grand-total/baygel)
+[![CodeFactor](https://www.codefactor.io/repository/github/jarod-smithy/baygel/badge)](https://www.codefactor.io/repository/github/jarod-smithy/baygel)
+[![R-CMD-CHECK](https://github.com/Jarod-Smithy/baygel/actions/workflows/package_build_check.yml/badge.svg)](https://github.com/Jarod-Smithy/baygel/actions/workflows/package_build_check.yml)
 
 ## Overview
 
@@ -43,6 +45,6 @@ CTrue         <- pracma::inv(SigTrue)
 mu            <- rep(0,p)
 # Generate multivariate normal distribution:
 set.seed(123)
-X             <- MASS::mvrnorm(n,mu=mu,Sigma=SigTrue)
+X             <- MASS::mvrnorm(n,mu = mu,Sigma = SigTrue)
 posterior     <- blockBSGR(X,iterations = 1000, burnIn = 500)
 ```
