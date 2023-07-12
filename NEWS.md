@@ -5,3 +5,7 @@
 
 -   Function `blockBAGR` is added to the package.
 -   Function `blockBSGR` is added to the package.
+
+### **baygel** Version 0.2.0
+
+-   Function `blockBAE` is added to the package.

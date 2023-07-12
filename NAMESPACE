@@ -1,7 +1,17 @@
+# CPP R functions
 useDynLib(baygel, .registration = TRUE)
 importFrom(Rcpp, evalCpp)
 export(blockBAGR)
 export(blockBSGR)
+
+# Native R functions
+export(blockBAE)
+importFrom(pracma,Reshape)
+importFrom(pracma,triu)
+importFrom(pracma,zeros)
+importFrom(statmod,rinvgauss)
+importFrom(stats,rgamma)
+importFrom(stats,rnorm)
 
 # Suppress R CMD check note
 importFrom(RcppArmadillo, fastLmPure)
