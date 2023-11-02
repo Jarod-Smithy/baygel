@@ -3,61 +3,214 @@
 
 #' Block Gibbs sampler function.
 #'
-#' A Bayesian adaptive graphical ridge-type data-augmented block Gibbs sampler for simulating the posterior distribution of the concentration matrix specifying a Gaussian graphical model.
+#' Implements the Type II Bayesian adaptive graphical elastic net block Gibbs sampler to simulate the
+#' posterior distribution of the concentration matrix in Gaussian graphical models.
 #'
 #' @param X Numeric data matrix, data is assumed to be Gaussian distributed.
-#' @param burnIn An integer specifying the number of burn-in iterations.
+#' @param burnin An integer specifying the number of burn-in iterations.
 #' @param iterations An integer specifying the length of the Markov chain after the burn-in iterations.
-#' @param s A double specifying the value of the prior inverse gamma's shape parameter.
-#' @param t A double specifying the value of the prior inverse gamma's scale parameter.
+#' @param a A double specifying the value of the shape parameter for the inverse gamma prior.
+#' @param b A double specifying the value of the scale parameter for the inverse gamma prior.
+#' @param r A double specifying the value of the rate parameter for the exponential prior associated with the Bayesian graphical ridge penalty term.
+#' @param s A double specifying the value of the rate parameter for the exponential prior associated with the Bayesian graphical lasso penalty term.
 #' @param verbose A logical determining whether the progress of the MCMC sampler should be displayed.
-#' @return blockBAGR: List of precision matrices from the Markov chains.
+#' @return A list containing precision `Omega` and covariance `Sigma` matrices
+#' from the Markov chains.
 #' @examples
 #'# Generate true covariance matrix:
 #'p             <- 10
 #'n             <- 50
 #'SigTrue       <- pracma::Toeplitz(c(0.7^rep(1:p-1)))
-#'CTrue         <- pracma::inv(SigTrue)
+#'OmegaTrue     <- pracma::inv(SigTrue)
 #'# Generate expected value vector:
 #'mu            <- rep(0,p)
 #'# Generate multivariate normal distribution:
 #'set.seed(123)
-#'X             <- MASS::mvrnorm(n,mu=mu,Sigma=SigTrue)
-#'posterior     <- blockBAGR(X,iterations = 1000, burnIn = 500)
+#'X             <- MASS::mvrnorm(n, mu = mu, Sigma = SigTrue)
+#'posterior     <- blockBAGENI(X, iterations = 1000, burnin = 500)
 #' @export
-blockBAGR <- function(X, burnIn, iterations, s = 1, t = 1, verbose = TRUE) {
-    .Call(`_baygel_blockBAGR`, X, burnIn, iterations, s, t, verbose)
+blockBAGENI <- function(X, burnin, iterations, verbose = TRUE, r = 1e-2, s = 1e-6, a = 0.5, b = 0.5) {
+    .Call(`_baygel_blockBAGENI`, X, burnin, iterations, verbose, r, s, a, b)
 }
 
 #' Block Gibbs sampler function.
 #'
-#' A Bayesian standard graphical ridge-type data-augmented block Gibbs sampler for simulating the posterior distribution of the concentration matrix specifying a Gaussian graphical model.
+#' Implements the Type I Bayesian adaptive graphical elastic net block Gibbs sampler to simulate the
+#' posterior distribution of the concentration matrix in Gaussian graphical models.
 #'
 #' @param X Numeric data matrix, data is assumed to be Gaussian distributed.
-#' @param burnIn An integer specifying the number of burn-in iterations.
+#' @param burnin An integer specifying the number of burn-in iterations.
 #' @param iterations An integer specifying the length of the Markov chain after the burn-in iterations.
-#' @param tau A double specifying the value of the variance parameter of both the Gaussian and truncated Gaussian distribution in Bayesian graphical ridge prior.
-#' @param mu A double specifying the value of the mean parameter of both the Gaussian and truncated Gaussian distribution in Bayesian graphical ridge prior.
+#' @param b A double specifying the value of the scale parameter for the inverse gamma prior.
+#' @param s A double specifying the value of the scale parameter for the gamma prior.
 #' @param verbose A logical determining whether the progress of the MCMC sampler should be displayed.
-#' @return blockBSGR: List of precision matrices from the Markov chains.
+#' @return A list containing precision `Omega` and covariance `Sigma` matrices
+#' from the Markov chains.
 #' @examples
 #'# Generate true covariance matrix:
 #'p             <- 10
 #'n             <- 50
 #'SigTrue       <- pracma::Toeplitz(c(0.7^rep(1:p-1)))
-#'CTrue         <- pracma::inv(SigTrue)
+#'OmegaTrue     <- pracma::inv(SigTrue)
 #'# Generate expected value vector:
 #'mu            <- rep(0,p)
 #'# Generate multivariate normal distribution:
 #'set.seed(123)
-#'X             <- MASS::mvrnorm(n,mu=mu,Sigma=SigTrue)
-#'posterior     <- blockBSGR(X,iterations = 1000, burnIn = 500)
+#'X             <- MASS::mvrnorm(n, mu = mu, Sigma = SigTrue)
+#'posterior     <- blockBAGENII(X, iterations = 1000, burnin = 500, b = 1e-3, s = 1e-1)
 #' @export
-blockBSGR <- function(X, burnIn, iterations, tau = 1, mu = 0, verbose = TRUE) {
-    .Call(`_baygel_blockBSGR`, X, burnIn, iterations, tau, mu, verbose)
+blockBAGENII <- function(X, burnin, iterations, verbose = TRUE, s = 1e-6, b = 0.5) {
+    .Call(`_baygel_blockBAGENII`, X, burnin, iterations, verbose, s, b)
 }
 
-mvrnormArma <- function(n, mu, sigma) {
-    .Call(`_baygel_mvrnormArma`, n, mu, sigma)
+#' Block Gibbs sampler function.
+#'
+#' Implements a Bayesian adaptive graphical lasso block Gibbs sampler to simulate the
+#' posterior distribution of the concentration matrix in Gaussian graphical models.
+#'
+#' @param X Numeric data matrix, data is assumed to be Gaussian distributed.
+#' @param burnin An integer specifying the number of burn-in iterations.
+#' @param iterations An integer specifying the length of the Markov chain after the burn-in iterations.
+#' @param r A double specifying the value of the shape parameter for the gamma prior.
+#' @param s A double specifying the value of the scale parameter for the gamma prior.
+#' @param verbose A logical determining whether the progress of the MCMC sampler should be displayed.
+#' @return A list containing precision `Omega` and covariance `Sigma` matrices
+#' from the Markov chains.
+#' @examples
+#'# Generate true covariance matrix:
+#'p             <- 10
+#'n             <- 50
+#'SigTrue       <- pracma::Toeplitz(c(0.7^rep(1:p-1)))
+#'OmegaTrue     <- pracma::inv(SigTrue)
+#'# Generate expected value vector:
+#'mu            <- rep(0,p)
+#'# Generate multivariate normal distribution:
+#'set.seed(123)
+#'X             <- MASS::mvrnorm(n, mu = mu, Sigma = SigTrue)
+#'posterior     <- blockBAGL(X, iterations = 1000, burnin = 500)
+#' @export
+blockBAGL <- function(X, burnin, iterations, verbose = TRUE, r = 1e-2, s = 1e-6) {
+    .Call(`_baygel_blockBAGL`, X, burnin, iterations, verbose, r, s)
+}
+
+#' Block Gibbs sampler function.
+#'
+#' Implements a Bayesian adaptive graphical ridge block Gibbs sampler to simulate the
+#' posterior distribution of the concentration matrix in Gaussian graphical models.
+#'
+#' @param X Numeric data matrix, data is assumed to be Gaussian distributed.
+#' @param burnin An integer specifying the number of burn-in iterations.
+#' @param iterations An integer specifying the length of the Markov chain after the burn-in iterations.
+#' @param a A double specifying the value of the shape parameter for the inverse gamma prior.
+#' @param b A double specifying the value of the scale parameter for the inverse gamma prior.
+#' @param verbose A logical determining whether the progress of the MCMC sampler should be displayed.
+#' @return A list containing precision `Omega` and covariance `Sigma` matrices
+#' from the Markov chains.
+#' @examples
+#'# Generate true covariance matrix:
+#'p             <- 10
+#'n             <- 50
+#'SigTrue       <- pracma::Toeplitz(c(0.7^rep(1:p-1)))
+#'OmegaTrue     <- pracma::inv(SigTrue)
+#'# Generate expected value vector:
+#'mu            <- rep(0,p)
+#'# Generate multivariate normal distribution:
+#'set.seed(123)
+#'X             <- MASS::mvrnorm(n, mu = mu, Sigma = SigTrue)
+#'posterior     <- blockBAGR(X, iterations = 1000, burnin = 500, a = 1, b = 1e-2)
+#' @export
+blockBAGR <- function(X, burnin, iterations, verbose = TRUE, a = 0.5, b = 0.5) {
+    .Call(`_baygel_blockBAGR`, X, burnin, iterations, verbose, a, b)
+}
+
+#' Block Gibbs sampler function.
+#'
+#' Implements the Bayesian graphical elastic net block Gibbs sampler to simulate the
+#' posterior distribution of the concentration matrix in Gaussian graphical models.
+#'
+#' @param X Numeric data matrix, data is assumed to be Gaussian distributed.
+#' @param burnin An integer specifying the number of burn-in iterations.
+#' @param iterations An integer specifying the length of the Markov chain after the burn-in iterations.
+#' @param lambda A numeric value representing the scale (rate) parameter for the double
+#' exponential and exponential prior associated with the Bayesian graphical lasso penalty term.
+#' @param sig A numeric value representing the standard deviation parameter for the double
+#' Gaussian and truncated Gaussian prior associated with the Bayesian graphical ridge penalty term.
+#' @param verbose A logical determining whether the progress of the MCMC sampler should be displayed.
+#' @return A list containing precision `Omega` and covariance `Sigma` matrices
+#' from the Markov chains.
+#' @examples
+#'# Generate true covariance matrix:
+#'p             <- 10
+#'n             <- 50
+#'SigTrue       <- pracma::Toeplitz(c(0.7^rep(1:p-1)))
+#'OmegaTrue     <- pracma::inv(SigTrue)
+#'# Generate expected value vector:
+#'mu            <- rep(0,p)
+#'# Generate multivariate normal distribution:
+#'set.seed(123)
+#'X             <- MASS::mvrnorm(n, mu = mu, Sigma = SigTrue)
+#'posterior     <- blockBGEN(X, iterations = 1000, burnin = 500, lambda = 1, sig = 1)
+#' @export
+blockBGEN <- function(X, burnin, iterations, lambda = 1, sig = 1, verbose = TRUE) {
+    .Call(`_baygel_blockBGEN`, X, burnin, iterations, lambda, sig, verbose)
+}
+
+#' Block Gibbs Sampler for Gaussian Graphical Models.
+#'
+#' Implements a Bayesian graphical lasso block Gibbs sampler to simulate the
+#' posterior distribution of the concentration matrix in Gaussian graphical models.
+#' @param X A numeric matrix of Gaussian distributed data.
+#' @param burnin An integer representing the number of burn-in iterations.
+#' @param iterations An integer representing the length of the Markov chain post burn-in.
+#' @param lambda A numeric value representing the scale (rate) parameter for the double
+#' exponential and exponential prior.
+#' @param verbose A logical indicating if the MCMC sampler progress should be printed.
+#' @return A list containing precision `Omega` and covariance `Sigma` matrices
+#' from the Markov chains.
+#' @examples
+#'# Generate true covariance matrix:
+#'p             <- 10
+#'n             <- 50
+#'SigTrue       <- pracma::Toeplitz(c(0.7^rep(1:p-1)))
+#'OmegaTrue     <- pracma::inv(SigTrue)
+#'# Generate expected value vector:
+#'mu            <- rep(0,p)
+#'# Generate multivariate normal distribution:
+#'set.seed(123)
+#'X             <- MASS::mvrnorm(n, mu = mu, Sigma = SigTrue)
+#'posterior     <- blockBGL(X, iterations = 1000, burnin = 500, lambda = 0.5)
+#' @export
+blockBGL <- function(X, burnin, iterations, lambda = 1, verbose = TRUE) {
+    .Call(`_baygel_blockBGL`, X, burnin, iterations, lambda, verbose)
+}
+
+#' Block Gibbs Sampler for Gaussian Graphical Models.
+#'
+#' Implements a Bayesian graphical ridge block Gibbs sampler to simulate the
+#' posterior distribution of the concentration matrix in Gaussian graphical models.
+#' @name blockBGR
+#' @param X A numeric matrix of Gaussian distributed data.
+#' @param burnin An integer representing the number of burn-in iterations.
+#' @param iterations An integer representing the length of the Markov chain post burn-in.
+#' @param sig A numeric value representing the standard deviation parameter for the double
+#' Gaussian and truncated Gaussian prior.
+#' @param verbose A logical indicating if the MCMC sampler progress should be printed.
+#' @return A list containing precision `Omega` and covariance `Sigma` matrices
+#' from the Markov chains.
+#' @examples
+#'# Generate true covariance matrix:
+#'p             <- 10
+#'n             <- 50
+#'SigTrue       <- pracma::Toeplitz(c(0.7^rep(1:p-1)))
+#'OmegaTrue     <- pracma::inv(SigTrue)
+#'# Generate expected value vector:
+#'mu            <- rep(0,p)
+#'# Generate multivariate normal distribution:
+#'set.seed(123)
+#'X             <- MASS::mvrnorm(n, mu = mu, Sigma = SigTrue)
+#'posterior     <- blockBGR(X, iterations = 1000, burnin = 500, sig = 0.5)
+#' @export
+blockBGR <- function(X, burnin, iterations, sig = 1, verbose = TRUE) {
+    .Call(`_baygel_blockBGR`, X, burnin, iterations, sig, verbose)
 }
 

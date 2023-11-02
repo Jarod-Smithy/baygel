@@ -1,7 +1,12 @@
 useDynLib(baygel, .registration = TRUE)
 importFrom(Rcpp, evalCpp)
+export(blockBAGENI)
+export(blockBAGENII)
+export(blockBAGL)
 export(blockBAGR)
-export(blockBSGR)
+export(blockBGEN)
+export(blockBGL)
+export(blockBGR)
 
 # Suppress R CMD check note
 importFrom(RcppArmadillo, fastLmPure)
