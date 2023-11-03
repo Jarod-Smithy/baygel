@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{blockBAGENI}
 \alias{blockBAGENI}
-\title{Block Gibbs sampler function.}
+\title{Type I naïve Bayesian adaptive graphical elastic net block Gibbs sampler for Gaussian graphical models.}
 \usage{
 blockBAGENI(
   X,
@@ -16,7 +16,7 @@ blockBAGENI(
 )
 }
 \arguments{
-\item{X}{Numeric data matrix, data is assumed to be Gaussian distributed.}
+\item{X}{Numeric data matrix.}
 
 \item{burnin}{An integer specifying the number of burn-in iterations.}
 
@@ -24,21 +24,21 @@ blockBAGENI(
 
 \item{verbose}{A logical determining whether the progress of the MCMC sampler should be displayed.}
 
-\item{r}{A double specifying the value of the rate parameter for the exponential prior associated with the Bayesian graphical ridge penalty term.}
+\item{r}{A double specifying the value of the shape parameter for the gamma prior associated with the Bayesian graphical lasso penalty term.}
 
-\item{s}{A double specifying the value of the rate parameter for the exponential prior associated with the Bayesian graphical lasso penalty term.}
+\item{s}{A double specifying the value of the scale parameter for the gamma prior associated with the Bayesian graphical lasso penalty term.}
 
-\item{a}{A double specifying the value of the shape parameter for the inverse gamma prior.}
+\item{a}{A double specifying the value of the shape parameter for the inverse gamma prior associated with the Bayesian graphical ridge penalty term.}
 
-\item{b}{A double specifying the value of the scale parameter for the inverse gamma prior.}
+\item{b}{A double specifying the value of the scale parameter for the inverse gamma prior associated with the Bayesian graphical ridge penalty term.}
 }
 \value{
 A list containing precision `Omega` and covariance `Sigma` matrices
 from the Markov chains.
 }
 \description{
-Implements the Type II Bayesian adaptive graphical elastic net block Gibbs sampler to simulate the
-posterior distribution of the concentration matrix in Gaussian graphical models.
+Implements the Type I naïve Bayesian adaptive graphical elastic net block Gibbs sampler to simulate the
+posterior distribution of the precision matrix for Gaussian graphical models.
 }
 \examples{
 # Generate true covariance matrix:

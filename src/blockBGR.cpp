@@ -7,12 +7,12 @@
 
 using namespace Rcpp;
 
-//' Block Gibbs Sampler for Gaussian Graphical Models.
+//' Bayesian graphical ridge block Gibbs sampler for Gaussian graphical models.
 //'
 //' Implements a Bayesian graphical ridge block Gibbs sampler to simulate the
-//' posterior distribution of the concentration matrix in Gaussian graphical models.
+//' posterior distribution of the precision matrix for Gaussian graphical models..
 //' @name blockBGR
-//' @param X A numeric matrix of Gaussian distributed data.
+//' @param X A numeric matrix.
 //' @param burnin An integer representing the number of burn-in iterations.
 //' @param iterations An integer representing the length of the Markov chain post burn-in.
 //' @param sig A numeric value representing the standard deviation parameter for the double

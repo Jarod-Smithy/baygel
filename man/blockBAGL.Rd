@@ -2,12 +2,12 @@
 % Please edit documentation in R/RcppExports.R
 \name{blockBAGL}
 \alias{blockBAGL}
-\title{Block Gibbs sampler function.}
+\title{Bayesian adaptive graphical lasso block Gibbs sampler for Gaussian graphical models.}
 \usage{
 blockBAGL(X, burnin, iterations, verbose = TRUE, r = 0.01, s = 1e-06)
 }
 \arguments{
-\item{X}{Numeric data matrix, data is assumed to be Gaussian distributed.}
+\item{X}{Numeric data matrix.}
 
 \item{burnin}{An integer specifying the number of burn-in iterations.}
 
@@ -25,7 +25,7 @@ from the Markov chains.
 }
 \description{
 Implements a Bayesian adaptive graphical lasso block Gibbs sampler to simulate the
-posterior distribution of the concentration matrix in Gaussian graphical models.
+posterior distribution of the precision matrix for Gaussian graphical models.
 }
 \examples{
 # Generate true covariance matrix:

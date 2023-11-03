@@ -5,15 +5,21 @@
 ![](https://www.r-pkg.org/badges/last-release/baygel)
 ![](https://cranlogs.r-pkg.org/badges/baygel)
 ![](https://cranlogs.r-pkg.org/badges/grand-total/baygel)
+[![CodeFactor](https://www.codefactor.io/repository/github/jarod-smithy/baygel/badge)](https://www.codefactor.io/repository/github/jarod-smithy/baygel)
+[![R-CMD-CHECK](https://github.com/Jarod-Smithy/baygel/actions/workflows/package_build_check.yml/badge.svg)](https://github.com/Jarod-Smithy/baygel/actions/workflows/package_build_check.yml)
 
 ## Overview
 
-The `R` package **baygel** provides a Markov chain Monte Carlo (MCMC)
-sampler to return the posterior distribution of precision matrices for
-*Gaussian* distributed data with *positive definite* covariance matrix.
-The package is implemented within the following literature, including
-[Smith et al. (2022)](https://doi.org/10.48550/arXiv.2210.16290). The
-MCMC sampler is implemented in `C++` using **RcppArmadillo**.
+The **baygel** `R` package provides data-augmented block Gibbs samplers,
+for Bayesian shrinkage methods, to return the posterior distribution of
+precision matrices for *Gaussian* distributed data with *positive
+definite* covariance matrix. The package is implemented within the
+following literature, including [Smith et
+al. (2022)](https://doi.org/10.48550/arXiv.2210.16290) and [Smith et
+al. (2023)](https://doi.org/10.48550/arXiv.2306.14199). The Bayesian
+(adaptive) graphical lasso block Gibbs samplers of [H. Wang
+(2012)](https://doi.org/10.1214/12-BA729) is also included for
+convenience.
 
 ## Installation
 
@@ -37,12 +43,14 @@ library(baygel)
 # Generate true covariance matrix:
 p             <- 10
 n             <- 50
-SigTrue       <- pracma::Toeplitz(c(0.7^rep(1:p-1)))
-CTrue         <- pracma::inv(SigTrue)
+OmegaTrue     <- pracma::Toeplitz(c(0.7^rep(1:p-1)))
+SigTrue       <- pracma::inv(OmegaTrue)
 # Generate expected value vector:
 mu            <- rep(0,p)
 # Generate multivariate normal distribution:
 set.seed(123)
-X             <- MASS::mvrnorm(n,mu=mu,Sigma=SigTrue)
-posterior     <- blockBSGR(X,iterations = 1000, burnIn = 500)
+X             <- MASS::mvrnorm(n, mu = mu, Sigma = SigTrue)
+posterior     <- blockBAGR(X,iterations = 1000, burnIn = 500)
+# Estimated precision matrix
+OmegaEst      <- apply(posterior(posterior$Omega), 1:2, mean)
 ```

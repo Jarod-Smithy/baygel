@@ -7,18 +7,18 @@
 
 using namespace Rcpp;
 
-//' Block Gibbs sampler function.
+//' Type I naïve Bayesian adaptive graphical elastic net block Gibbs sampler for Gaussian graphical models.
 //'
-//' Implements the Type II Bayesian adaptive graphical elastic net block Gibbs sampler to simulate the
-//' posterior distribution of the concentration matrix in Gaussian graphical models.
+//' Implements the Type I naïve Bayesian adaptive graphical elastic net block Gibbs sampler to simulate the
+//' posterior distribution of the precision matrix for Gaussian graphical models.
 //'
-//' @param X Numeric data matrix, data is assumed to be Gaussian distributed.
+//' @param X Numeric data matrix.
 //' @param burnin An integer specifying the number of burn-in iterations.
 //' @param iterations An integer specifying the length of the Markov chain after the burn-in iterations.
-//' @param a A double specifying the value of the shape parameter for the inverse gamma prior.
-//' @param b A double specifying the value of the scale parameter for the inverse gamma prior.
-//' @param r A double specifying the value of the rate parameter for the exponential prior associated with the Bayesian graphical ridge penalty term.
-//' @param s A double specifying the value of the rate parameter for the exponential prior associated with the Bayesian graphical lasso penalty term.
+//' @param a A double specifying the value of the shape parameter for the inverse gamma prior associated with the Bayesian graphical ridge penalty term.
+//' @param b A double specifying the value of the scale parameter for the inverse gamma prior associated with the Bayesian graphical ridge penalty term.
+//' @param r A double specifying the value of the shape parameter for the gamma prior associated with the Bayesian graphical lasso penalty term.
+//' @param s A double specifying the value of the scale parameter for the gamma prior associated with the Bayesian graphical lasso penalty term.
 //' @param verbose A logical determining whether the progress of the MCMC sampler should be displayed.
 //' @return A list containing precision `Omega` and covariance `Sigma` matrices
 //' from the Markov chains.

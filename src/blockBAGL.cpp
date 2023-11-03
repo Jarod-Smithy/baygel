@@ -7,12 +7,12 @@
 
 using namespace Rcpp;
 
-//' Block Gibbs sampler function.
+//' Bayesian adaptive graphical lasso block Gibbs sampler for Gaussian graphical models.
 //'
 //' Implements a Bayesian adaptive graphical lasso block Gibbs sampler to simulate the
-//' posterior distribution of the concentration matrix in Gaussian graphical models.
+//' posterior distribution of the precision matrix for Gaussian graphical models.
 //'
-//' @param X Numeric data matrix, data is assumed to be Gaussian distributed.
+//' @param X Numeric data matrix.
 //' @param burnin An integer specifying the number of burn-in iterations.
 //' @param iterations An integer specifying the length of the Markov chain after the burn-in iterations.
 //' @param r A double specifying the value of the shape parameter for the gamma prior.

@@ -2,12 +2,12 @@
 % Please edit documentation in R/RcppExports.R
 \name{blockBAGR}
 \alias{blockBAGR}
-\title{Block Gibbs sampler function.}
+\title{Bayesian adaptive graphical ridge block Gibbs sampler for Gaussian graphical models.}
 \usage{
 blockBAGR(X, burnin, iterations, verbose = TRUE, a = 0.5, b = 0.5)
 }
 \arguments{
-\item{X}{Numeric data matrix, data is assumed to be Gaussian distributed.}
+\item{X}{Numeric data matrix.}
 
 \item{burnin}{An integer specifying the number of burn-in iterations.}
 
@@ -25,7 +25,7 @@ from the Markov chains.
 }
 \description{
 Implements a Bayesian adaptive graphical ridge block Gibbs sampler to simulate the
-posterior distribution of the concentration matrix in Gaussian graphical models.
+posterior distribution of the precision matrix for Gaussian graphical models.
 }
 \examples{
 # Generate true covariance matrix:

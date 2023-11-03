@@ -2,12 +2,12 @@
 % Please edit documentation in R/RcppExports.R
 \name{blockBGEN}
 \alias{blockBGEN}
-\title{Block Gibbs sampler function.}
+\title{Naïve Bayesian graphical elastic net block Gibbs sampler for Gaussian graphical models.}
 \usage{
 blockBGEN(X, burnin, iterations, lambda = 1, sig = 1, verbose = TRUE)
 }
 \arguments{
-\item{X}{Numeric data matrix, data is assumed to be Gaussian distributed.}
+\item{X}{Numeric data matrix.}
 
 \item{burnin}{An integer specifying the number of burn-in iterations.}
 
@@ -27,7 +27,7 @@ from the Markov chains.
 }
 \description{
 Implements the Bayesian graphical elastic net block Gibbs sampler to simulate the
-posterior distribution of the concentration matrix in Gaussian graphical models.
+posterior distribution of the precision matrix for Gaussian graphical models.
 }
 \examples{
 # Generate true covariance matrix:

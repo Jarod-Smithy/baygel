@@ -2,12 +2,12 @@
 % Please edit documentation in R/RcppExports.R
 \name{blockBAGENII}
 \alias{blockBAGENII}
-\title{Block Gibbs sampler function.}
+\title{Type II naïve Bayesian adaptive graphical elastic net block Gibbs sampler for Gaussian graphical models.}
 \usage{
 blockBAGENII(X, burnin, iterations, verbose = TRUE, s = 1e-06, b = 0.5)
 }
 \arguments{
-\item{X}{Numeric data matrix, data is assumed to be Gaussian distributed.}
+\item{X}{Numeric data matrix.}
 
 \item{burnin}{An integer specifying the number of burn-in iterations.}
 
@@ -15,17 +15,17 @@ blockBAGENII(X, burnin, iterations, verbose = TRUE, s = 1e-06, b = 0.5)
 
 \item{verbose}{A logical determining whether the progress of the MCMC sampler should be displayed.}
 
-\item{s}{A double specifying the value of the scale parameter for the gamma prior.}
+\item{s}{A double specifying the value of the rate parameter for the exponential prior associated with the Bayesian graphical lasso penalty term.}
 
-\item{b}{A double specifying the value of the scale parameter for the inverse gamma prior.}
+\item{b}{A double specifying the value of the rate parameter for the exponential prior associated with the Bayesian graphical ridge penalty term.}
 }
 \value{
 A list containing precision `Omega` and covariance `Sigma` matrices
 from the Markov chains.
 }
 \description{
-Implements the Type I Bayesian adaptive graphical elastic net block Gibbs sampler to simulate the
-posterior distribution of the concentration matrix in Gaussian graphical models.
+Implements the Type II naïve Bayesian adaptive graphical elastic net block Gibbs sampler to simulate the
+posterior distribution of the precision matrix for Gaussian graphical models.
 }
 \examples{
 # Generate true covariance matrix:

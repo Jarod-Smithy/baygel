@@ -7,11 +7,11 @@
 
 using namespace Rcpp;
 
-//' Block Gibbs Sampler for Gaussian Graphical Models.
+//' Bayesian graphical lasso block Gibbs sampler for Gaussian graphical models.
 //'
 //' Implements a Bayesian graphical lasso block Gibbs sampler to simulate the
-//' posterior distribution of the concentration matrix in Gaussian graphical models.
-//' @param X A numeric matrix of Gaussian distributed data.
+//' posterior distribution of the precision matrix for Gaussian graphical models.
+//' @param X A numeric matrix.
 //' @param burnin An integer representing the number of burn-in iterations.
 //' @param iterations An integer representing the length of the Markov chain post burn-in.
 //' @param lambda A numeric value representing the scale (rate) parameter for the double
