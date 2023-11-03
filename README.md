@@ -50,7 +50,7 @@ mu            <- rep(0,p)
 # Generate multivariate normal distribution:
 set.seed(123)
 X             <- MASS::mvrnorm(n, mu = mu, Sigma = SigTrue)
-posterior     <- blockBAGR(X,iterations = 1000, burnIn = 500)
+posterior     <- blockBAGR(X,iterations = 1000, burnin = 500)
 # Estimated precision matrix
-OmegaEst      <- apply(posterior(posterior$Omega), 1:2, mean)
+OmegaEst      <- apply(simplify2array(posterior$Omega), 1:2, mean)
 ```
