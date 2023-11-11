@@ -92,7 +92,7 @@ List blockBAGENI(arma::mat X, int burnin, int iterations, bool verbose = true, d
    if (i == p-1){
      ind_noi_all.col(i) = permInt.subvec(0,p-2);
    }
-   if (i != p-1 & i != 0){
+   if ((i != p-1) & (i != 0)){
      arma::vec A, B;
      A = permInt.subvec(0,i-1);
      B = permInt.subvec(i+1,p-1);
