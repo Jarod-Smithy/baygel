@@ -39,7 +39,6 @@ using namespace Rcpp;
 //' @export
 // [[Rcpp::export]]
 List blockBGR(arma::mat X, int burnin, int iterations, double sig = 1, bool verbose = true){
- 
  // variable declarations and initialisations
  int totIter, n, p;
  totIter = burnin + iterations;
@@ -155,7 +154,6 @@ List blockBGR(arma::mat X, int burnin, int iterations, double sig = 1, bool verb
      SigmaMatList[idx] = Sig;
      idx += 1;
    }
-   
  }
  // Create the final result list
  return Rcpp::List::create(Rcpp::Named("Omega") = OmegaMatList,

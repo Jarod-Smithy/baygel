@@ -38,7 +38,7 @@ using namespace Rcpp;
 //' @export
 // [[Rcpp::export]]
 List blockBAGR(arma::mat X, int burnin, int iterations, bool verbose = true, double a = 1, double b = 1e-2){
-
+  // variable declarations and initialisations
   int totIter, n, p;
   totIter = burnin + iterations;
   n = X.n_rows;
@@ -97,7 +97,6 @@ List blockBAGR(arma::mat X, int burnin, int iterations, bool verbose = true, dou
 
   int idx = 0;
   for (int iter=0; iter<totIter; iter++){
-
     if (Progress::check_abort())
       return -1.0;
 
@@ -159,7 +158,6 @@ List blockBAGR(arma::mat X, int burnin, int iterations, bool verbose = true, dou
       SigmaMatList[idx] = Sig;
       idx += 1;
     }
-
   }
   // Create the final result list
   return Rcpp::List::create(Rcpp::Named("Omega") = OmegaMatList,

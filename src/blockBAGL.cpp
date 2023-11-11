@@ -38,7 +38,7 @@ using namespace Rcpp;
 //' @export
 // [[Rcpp::export]]
 List blockBAGL(arma::mat X, int burnin, int iterations, bool verbose = true, double r = 1e-2, double s = 1e-6){
-
+  // variable declarations and initialisations
   int totIter, n, p;
   totIter = burnin + iterations;
   n = X.n_rows;
@@ -98,7 +98,6 @@ List blockBAGL(arma::mat X, int burnin, int iterations, bool verbose = true, dou
 
   int iter_idx = 0;
   for (int iter=0; iter<totIter; iter++){
-
     if (Progress::check_abort())
       return -1.0;
 
@@ -179,7 +178,6 @@ List blockBAGL(arma::mat X, int burnin, int iterations, bool verbose = true, dou
       SigmaMatList[iter_idx] = Sig;
       iter_idx += 1;
     }
-
   }
   return Rcpp::List::create(Rcpp::Named("Omega") = OmegaMatList,
                             Rcpp::Named("Sigma") = SigmaMatList);

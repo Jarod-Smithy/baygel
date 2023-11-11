@@ -40,7 +40,6 @@ using namespace Rcpp;
 //' @export
 // [[Rcpp::export]]
 List blockBAGENI(arma::mat X, int burnin, int iterations, bool verbose = true, double r = 1e-3, double s = 1e-2, double a = 1e-3, double b = 1e-1){
- 
  // variable declarations and initialisations
  int totIter, n, p;
  totIter = burnin + iterations;
@@ -102,7 +101,6 @@ List blockBAGENI(arma::mat X, int burnin, int iterations, bool verbose = true, d
  
  int iter_idx = 0;
  for (int iter=0; iter<totIter; iter++){
-   
    if (Progress::check_abort())
      return -1.0;
    
@@ -172,7 +170,6 @@ List blockBAGENI(arma::mat X, int burnin, int iterations, bool verbose = true, d
      SigmaMatList[iter_idx] = Sig;
      iter_idx += 1;
    }
-   
  }
  // Create the final result list
  return Rcpp::List::create(Rcpp::Named("Omega") = OmegaMatList,
