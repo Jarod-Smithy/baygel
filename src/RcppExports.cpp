@@ -11,48 +11,115 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// blockBAGR
-List blockBAGR(arma::mat X, int burnIn, int iterations, double s, double t, bool verbose);
-RcppExport SEXP _baygel_blockBAGR(SEXP XSEXP, SEXP burnInSEXP, SEXP iterationsSEXP, SEXP sSEXP, SEXP tSEXP, SEXP verboseSEXP) {
+// blockBAGENI
+List blockBAGENI(arma::mat X, int burnin, int iterations, bool verbose, double r, double s, double a, double b);
+RcppExport SEXP _baygel_blockBAGENI(SEXP XSEXP, SEXP burninSEXP, SEXP iterationsSEXP, SEXP verboseSEXP, SEXP rSEXP, SEXP sSEXP, SEXP aSEXP, SEXP bSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::mat >::type X(XSEXP);
-    Rcpp::traits::input_parameter< int >::type burnIn(burnInSEXP);
+    Rcpp::traits::input_parameter< int >::type burnin(burninSEXP);
     Rcpp::traits::input_parameter< int >::type iterations(iterationsSEXP);
+    Rcpp::traits::input_parameter< bool >::type verbose(verboseSEXP);
+    Rcpp::traits::input_parameter< double >::type r(rSEXP);
     Rcpp::traits::input_parameter< double >::type s(sSEXP);
-    Rcpp::traits::input_parameter< double >::type t(tSEXP);
-    Rcpp::traits::input_parameter< bool >::type verbose(verboseSEXP);
-    rcpp_result_gen = Rcpp::wrap(blockBAGR(X, burnIn, iterations, s, t, verbose));
+    Rcpp::traits::input_parameter< double >::type a(aSEXP);
+    Rcpp::traits::input_parameter< double >::type b(bSEXP);
+    rcpp_result_gen = Rcpp::wrap(blockBAGENI(X, burnin, iterations, verbose, r, s, a, b));
     return rcpp_result_gen;
 END_RCPP
 }
-// blockBSGR
-List blockBSGR(arma::mat X, int burnIn, int iterations, double tau, double mu, bool verbose);
-RcppExport SEXP _baygel_blockBSGR(SEXP XSEXP, SEXP burnInSEXP, SEXP iterationsSEXP, SEXP tauSEXP, SEXP muSEXP, SEXP verboseSEXP) {
+// blockBAGENII
+List blockBAGENII(arma::mat X, int burnin, int iterations, bool verbose, double s, double b);
+RcppExport SEXP _baygel_blockBAGENII(SEXP XSEXP, SEXP burninSEXP, SEXP iterationsSEXP, SEXP verboseSEXP, SEXP sSEXP, SEXP bSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::mat >::type X(XSEXP);
-    Rcpp::traits::input_parameter< int >::type burnIn(burnInSEXP);
+    Rcpp::traits::input_parameter< int >::type burnin(burninSEXP);
     Rcpp::traits::input_parameter< int >::type iterations(iterationsSEXP);
-    Rcpp::traits::input_parameter< double >::type tau(tauSEXP);
-    Rcpp::traits::input_parameter< double >::type mu(muSEXP);
     Rcpp::traits::input_parameter< bool >::type verbose(verboseSEXP);
-    rcpp_result_gen = Rcpp::wrap(blockBSGR(X, burnIn, iterations, tau, mu, verbose));
+    Rcpp::traits::input_parameter< double >::type s(sSEXP);
+    Rcpp::traits::input_parameter< double >::type b(bSEXP);
+    rcpp_result_gen = Rcpp::wrap(blockBAGENII(X, burnin, iterations, verbose, s, b));
     return rcpp_result_gen;
 END_RCPP
 }
-// mvrnormArma
-arma::mat mvrnormArma(int n, arma::vec mu, arma::mat sigma);
-RcppExport SEXP _baygel_mvrnormArma(SEXP nSEXP, SEXP muSEXP, SEXP sigmaSEXP) {
+// blockBAGL
+List blockBAGL(arma::mat X, int burnin, int iterations, bool verbose, double r, double s);
+RcppExport SEXP _baygel_blockBAGL(SEXP XSEXP, SEXP burninSEXP, SEXP iterationsSEXP, SEXP verboseSEXP, SEXP rSEXP, SEXP sSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type mu(muSEXP);
-    Rcpp::traits::input_parameter< arma::mat >::type sigma(sigmaSEXP);
-    rcpp_result_gen = Rcpp::wrap(mvrnormArma(n, mu, sigma));
+    Rcpp::traits::input_parameter< arma::mat >::type X(XSEXP);
+    Rcpp::traits::input_parameter< int >::type burnin(burninSEXP);
+    Rcpp::traits::input_parameter< int >::type iterations(iterationsSEXP);
+    Rcpp::traits::input_parameter< bool >::type verbose(verboseSEXP);
+    Rcpp::traits::input_parameter< double >::type r(rSEXP);
+    Rcpp::traits::input_parameter< double >::type s(sSEXP);
+    rcpp_result_gen = Rcpp::wrap(blockBAGL(X, burnin, iterations, verbose, r, s));
+    return rcpp_result_gen;
+END_RCPP
+}
+// blockBAGR
+List blockBAGR(arma::mat X, int burnin, int iterations, bool verbose, double a, double b);
+RcppExport SEXP _baygel_blockBAGR(SEXP XSEXP, SEXP burninSEXP, SEXP iterationsSEXP, SEXP verboseSEXP, SEXP aSEXP, SEXP bSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type X(XSEXP);
+    Rcpp::traits::input_parameter< int >::type burnin(burninSEXP);
+    Rcpp::traits::input_parameter< int >::type iterations(iterationsSEXP);
+    Rcpp::traits::input_parameter< bool >::type verbose(verboseSEXP);
+    Rcpp::traits::input_parameter< double >::type a(aSEXP);
+    Rcpp::traits::input_parameter< double >::type b(bSEXP);
+    rcpp_result_gen = Rcpp::wrap(blockBAGR(X, burnin, iterations, verbose, a, b));
+    return rcpp_result_gen;
+END_RCPP
+}
+// blockBGEN
+List blockBGEN(arma::mat X, int burnin, int iterations, double lambda, double sig, bool verbose);
+RcppExport SEXP _baygel_blockBGEN(SEXP XSEXP, SEXP burninSEXP, SEXP iterationsSEXP, SEXP lambdaSEXP, SEXP sigSEXP, SEXP verboseSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type X(XSEXP);
+    Rcpp::traits::input_parameter< int >::type burnin(burninSEXP);
+    Rcpp::traits::input_parameter< int >::type iterations(iterationsSEXP);
+    Rcpp::traits::input_parameter< double >::type lambda(lambdaSEXP);
+    Rcpp::traits::input_parameter< double >::type sig(sigSEXP);
+    Rcpp::traits::input_parameter< bool >::type verbose(verboseSEXP);
+    rcpp_result_gen = Rcpp::wrap(blockBGEN(X, burnin, iterations, lambda, sig, verbose));
+    return rcpp_result_gen;
+END_RCPP
+}
+// blockBGL
+List blockBGL(arma::mat X, int burnin, int iterations, double lambda, bool verbose);
+RcppExport SEXP _baygel_blockBGL(SEXP XSEXP, SEXP burninSEXP, SEXP iterationsSEXP, SEXP lambdaSEXP, SEXP verboseSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type X(XSEXP);
+    Rcpp::traits::input_parameter< int >::type burnin(burninSEXP);
+    Rcpp::traits::input_parameter< int >::type iterations(iterationsSEXP);
+    Rcpp::traits::input_parameter< double >::type lambda(lambdaSEXP);
+    Rcpp::traits::input_parameter< bool >::type verbose(verboseSEXP);
+    rcpp_result_gen = Rcpp::wrap(blockBGL(X, burnin, iterations, lambda, verbose));
+    return rcpp_result_gen;
+END_RCPP
+}
+// blockBGR
+List blockBGR(arma::mat X, int burnin, int iterations, double sig, bool verbose);
+RcppExport SEXP _baygel_blockBGR(SEXP XSEXP, SEXP burninSEXP, SEXP iterationsSEXP, SEXP sigSEXP, SEXP verboseSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type X(XSEXP);
+    Rcpp::traits::input_parameter< int >::type burnin(burninSEXP);
+    Rcpp::traits::input_parameter< int >::type iterations(iterationsSEXP);
+    Rcpp::traits::input_parameter< double >::type sig(sigSEXP);
+    Rcpp::traits::input_parameter< bool >::type verbose(verboseSEXP);
+    rcpp_result_gen = Rcpp::wrap(blockBGR(X, burnin, iterations, sig, verbose));
     return rcpp_result_gen;
 END_RCPP
 }

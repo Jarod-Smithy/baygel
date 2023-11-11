@@ -2,6 +2,9 @@
 ^.Rhistory
 ^.lintr
 ^CRAN-SUBMISSION$
+^\.Rproj\.user$
+^README.Rmd
+^README.html
 ^NEWS.Rmd
 ^NEWS.md
 ^README.Rmd
