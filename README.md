@@ -1,10 +1,4 @@
----
-output: github_document
----
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 # **baygel** <a href='https://CRAN.R-project.org/package=baygel'><img src="man/figures/logo.png" align="right" height="150"/></a>
 
 ![](https://www.r-pkg.org/badges/version/baygel)
