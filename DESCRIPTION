@@ -1,12 +1,12 @@
 Package: baygel
 Type: Package
-Title: Bayesian Shrinkage Estimators for Gaussian Graphical Models
+Title: Bayesian Shrinkage Estimators for Precision Matrices in Gaussian Graphical Models
 Version: 0.3.0
-Date: 2023-11-02
+Date: 2023-11-11
 Authors@R: c(person("Jarod", "Smith", email = "jarodsmith706@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-4235-6147")),
   person("Mohammad", "Arashi", email = "arashi@um.ac.ir", role = "aut", comment = c(ORCID = "0000-0002-5881-9241")),
   person("Andriette", "Bekker", email = "andriette.bekker@up.ac.za", role = "aut", comment = c(ORCID = "0000-0003-4793-5674")))
-Description: This R package offers block Gibbs samplers for the Bayesian (adaptive) graphical lasso, ridge, and naïve elastic net priors. These samplers facilitate the simulation of the posterior distribution of precision matrices for Gaussian distributed data and were originally proposed by: Wang (2012) <doi:10.1214/12-BA729>; Smith et al. (2022) <doi:10.48550/arXiv.2210.16290> and Smith et al. (2023) <doi:10.48550/arXiv.2306.14199>.
+Description: This R package offers block Gibbs samplers for the Bayesian (adaptive) graphical lasso, ridge, and naive elastic net priors. These samplers facilitate the simulation of the posterior distribution of precision matrices for Gaussian distributed data and were originally proposed by: Wang (2012) <doi:10.1214/12-BA729>; Smith et al. (2022) <doi:10.48550/arXiv.2210.16290> and Smith et al. (2023) <doi:10.48550/arXiv.2306.14199>, respectively.
 License: GPL (>= 3)
 Imports: 
     Rcpp (>= 1.0.8),

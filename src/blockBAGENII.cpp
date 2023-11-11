@@ -7,12 +7,12 @@
 
 using namespace Rcpp;
 
-//' Type II naïve Bayesian adaptive graphical elastic net block Gibbs sampler for Gaussian graphical models.
+//' Type II naive Bayesian adaptive graphical elastic net block Gibbs sampler for Gaussian graphical models.
 //'
-//' Implements the Type II naïve Bayesian adaptive graphical elastic net block Gibbs sampler to simulate the
+//' Implements the Type II naive Bayesian adaptive graphical elastic net block Gibbs sampler to simulate the
 //' posterior distribution of the precision matrix for Gaussian graphical models.
 //'
-//' @param X Numeric data matrix.
+//' @param X A numeric matrix, assumed to be generated from a multivariate Gaussian distribution.
 //' @param burnin An integer specifying the number of burn-in iterations.
 //' @param iterations An integer specifying the length of the Markov chain after the burn-in iterations.
 //' @param b A double specifying the value of the rate parameter for the exponential prior associated with the Bayesian graphical ridge penalty term.
@@ -21,20 +21,23 @@ using namespace Rcpp;
 //' @return A list containing precision `Omega` and covariance `Sigma` matrices
 //' from the Markov chains.
 //' @examples
-//'# Generate true covariance matrix:
+//'# Generate true precision matrix:
 //'p             <- 10
-//'n             <- 50
-//'SigTrue       <- pracma::Toeplitz(c(0.7^rep(1:p-1)))
-//'OmegaTrue     <- pracma::inv(SigTrue)
+//'n             <- 500
+//' OmegaTrue    <- pracma::Toeplitz(c(0.7^rep(1:p-1)))
+//' SigTrue      <- pracma::inv(OmegaTrue)
 //'# Generate expected value vector:
 //'mu            <- rep(0,p)
 //'# Generate multivariate normal distribution:
 //'set.seed(123)
 //'X             <- MASS::mvrnorm(n, mu = mu, Sigma = SigTrue)
-//'posterior     <- blockBAGENII(X, iterations = 1000, burnin = 500, b = 1e-3, s = 1e-1)
+//'# Generate posterior distribution:
+//'posterior     <- blockBAGENII(X, iterations = 1000, burnin = 500)
+//'# Estimated precision matrix using the mean of the posterior:
+//'OmegaEst      <- apply(simplify2array(posterior$Omega), 1:2, mean)
 //' @export
 // [[Rcpp::export]]
-List blockBAGENII(arma::mat X, int burnin, int iterations, bool verbose = true, double s = 1e-6, double b = 0.5){
+List blockBAGENII(arma::mat X, int burnin, int iterations, bool verbose = true, double s = 1e-1, double b = 1e-3){
  
  // variable declarations and initialisations
  int totIter, n, p;

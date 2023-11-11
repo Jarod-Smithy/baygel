@@ -4,10 +4,10 @@
 \alias{blockBAGR}
 \title{Bayesian adaptive graphical ridge block Gibbs sampler for Gaussian graphical models.}
 \usage{
-blockBAGR(X, burnin, iterations, verbose = TRUE, a = 0.5, b = 0.5)
+blockBAGR(X, burnin, iterations, verbose = TRUE, a = 1, b = 0.01)
 }
 \arguments{
-\item{X}{Numeric data matrix.}
+\item{X}{A numeric matrix, assumed to be generated from a multivariate Gaussian distribution.}
 
 \item{burnin}{An integer specifying the number of burn-in iterations.}
 
@@ -28,15 +28,18 @@ Implements a Bayesian adaptive graphical ridge block Gibbs sampler to simulate t
 posterior distribution of the precision matrix for Gaussian graphical models.
 }
 \examples{
-# Generate true covariance matrix:
+# Generate true precision matrix:
 p             <- 10
-n             <- 50
-SigTrue       <- pracma::Toeplitz(c(0.7^rep(1:p-1)))
-OmegaTrue     <- pracma::inv(SigTrue)
+n             <- 500
+OmegaTrue    <- pracma::Toeplitz(c(0.7^rep(1:p-1)))
+SigTrue      <- pracma::inv(OmegaTrue)
 # Generate expected value vector:
 mu            <- rep(0,p)
 # Generate multivariate normal distribution:
 set.seed(123)
 X             <- MASS::mvrnorm(n, mu = mu, Sigma = SigTrue)
-posterior     <- blockBAGR(X, iterations = 1000, burnin = 500, a = 1, b = 1e-2)
+# Generate posterior distribution:
+posterior     <- blockBAGR(X, iterations = 1000, burnin = 500)
+# Estimated precision matrix using the mean of the posterior:
+OmegaEst      <- apply(simplify2array(posterior$Omega), 1:2, mean)
 }

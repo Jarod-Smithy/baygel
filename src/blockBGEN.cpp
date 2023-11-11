@@ -7,15 +7,15 @@
 
 using namespace Rcpp;
 
-//' Naïve Bayesian graphical elastic net block Gibbs sampler for Gaussian graphical models.
+//' Naive Bayesian graphical elastic net block Gibbs sampler for Gaussian graphical models.
 //'
 //' Implements the Bayesian graphical elastic net block Gibbs sampler to simulate the
 //' posterior distribution of the precision matrix for Gaussian graphical models.
 //'
-//' @param X Numeric data matrix.
+//' @param X A numeric matrix, assumed to be generated from a multivariate Gaussian distribution.
 //' @param burnin An integer specifying the number of burn-in iterations.
 //' @param iterations An integer specifying the length of the Markov chain after the burn-in iterations.
-//' @param lambda A numeric value representing the scale (rate) parameter for the double
+//' @param lambda A numeric value representing the rate parameter for the double
 //' exponential and exponential prior associated with the Bayesian graphical lasso penalty term.
 //' @param sig A numeric value representing the standard deviation parameter for the double
 //' Gaussian and truncated Gaussian prior associated with the Bayesian graphical ridge penalty term.
@@ -23,17 +23,20 @@ using namespace Rcpp;
 //' @return A list containing precision `Omega` and covariance `Sigma` matrices
 //' from the Markov chains.
 //' @examples
-//'# Generate true covariance matrix:
+//'# Generate true precision matrix:
 //'p             <- 10
-//'n             <- 50
-//'SigTrue       <- pracma::Toeplitz(c(0.7^rep(1:p-1)))
-//'OmegaTrue     <- pracma::inv(SigTrue)
+//'n             <- 500
+//' OmegaTrue    <- pracma::Toeplitz(c(0.7^rep(1:p-1)))
+//' SigTrue      <- pracma::inv(OmegaTrue)
 //'# Generate expected value vector:
 //'mu            <- rep(0,p)
 //'# Generate multivariate normal distribution:
 //'set.seed(123)
 //'X             <- MASS::mvrnorm(n, mu = mu, Sigma = SigTrue)
+//'# Generate posterior distribution:
 //'posterior     <- blockBGEN(X, iterations = 1000, burnin = 500, lambda = 1, sig = 1)
+//'# Estimated precision matrix using the mean of the posterior:
+//'OmegaEst      <- apply(simplify2array(posterior$Omega), 1:2, mean)
 //' @export
 // [[Rcpp::export]]
 List blockBGEN(arma::mat X, int burnin, int iterations, double lambda = 1, double sig = 1, bool verbose = true){

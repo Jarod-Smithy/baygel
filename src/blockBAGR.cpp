@@ -12,7 +12,7 @@ using namespace Rcpp;
 //' Implements a Bayesian adaptive graphical ridge block Gibbs sampler to simulate the
 //' posterior distribution of the precision matrix for Gaussian graphical models.
 //'
-//' @param X Numeric data matrix.
+//' @param X A numeric matrix, assumed to be generated from a multivariate Gaussian distribution.
 //' @param burnin An integer specifying the number of burn-in iterations.
 //' @param iterations An integer specifying the length of the Markov chain after the burn-in iterations.
 //' @param a A double specifying the value of the shape parameter for the inverse gamma prior.
@@ -21,20 +21,23 @@ using namespace Rcpp;
 //' @return A list containing precision `Omega` and covariance `Sigma` matrices
 //' from the Markov chains.
 //' @examples
-//'# Generate true covariance matrix:
+//'# Generate true precision matrix:
 //'p             <- 10
-//'n             <- 50
-//'SigTrue       <- pracma::Toeplitz(c(0.7^rep(1:p-1)))
-//'OmegaTrue     <- pracma::inv(SigTrue)
+//'n             <- 500
+//' OmegaTrue    <- pracma::Toeplitz(c(0.7^rep(1:p-1)))
+//' SigTrue      <- pracma::inv(OmegaTrue)
 //'# Generate expected value vector:
 //'mu            <- rep(0,p)
 //'# Generate multivariate normal distribution:
 //'set.seed(123)
 //'X             <- MASS::mvrnorm(n, mu = mu, Sigma = SigTrue)
-//'posterior     <- blockBAGR(X, iterations = 1000, burnin = 500, a = 1, b = 1e-2)
+//'# Generate posterior distribution:
+//'posterior     <- blockBAGR(X, iterations = 1000, burnin = 500)
+//'# Estimated precision matrix using the mean of the posterior:
+//'OmegaEst      <- apply(simplify2array(posterior$Omega), 1:2, mean)
 //' @export
 // [[Rcpp::export]]
-List blockBAGR(arma::mat X, int burnin, int iterations, bool verbose = true, double a = 0.5, double b = 0.5){
+List blockBAGR(arma::mat X, int burnin, int iterations, bool verbose = true, double a = 1, double b = 1e-2){
 
   int totIter, n, p;
   totIter = burnin + iterations;
